@@ -1,0 +1,54 @@
+@import "../../../styles/_functions";
+@import "../../../styles/_variable";
+.content__wrapper {
+  position: relative !important;
+}
+.content {
+  height: 100vh;
+  &__toolbar {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    &__top {
+      width: 100%;
+      &__span {
+        width: 40%;
+        &__input {
+          width: 100%;
+        }
+      }
+    }
+    &__bottom {
+      width: 100%;
+      display: flex;
+      &__breadcrumb {
+        width: 89%;
+        // &__component {
+        //   padding: toRem(10);
+        // }
+      }
+      &__button {
+        width: 11%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  &__table {
+    height: 85%;
+    width: 100%;
+  }
+}
+
+:host ::ng-deep .p-breadcrumb {
+  padding: toRem(9);
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  color: $primary-color;
+  position: sticky;
+  top: 0;
+}

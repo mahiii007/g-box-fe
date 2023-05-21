@@ -1,0 +1,18 @@
+@import "../../node_modules/primeng/resources/themes/arya-purple/theme.css";
+// $primary-background: #121212;
+// $primary-offset-background: #1e1e1e;
+.themebg {
+  color: #121212 !important;
+  background-color: #1e1e1e !important;
+}
+.themebg__alt {
+  background-color: #121212 !important;
+}
+
+.theme_tag {
+  a,
+  i,
+  .logo {
+    color: #ffff !important;
+  }
+}

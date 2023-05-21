@@ -1,0 +1,43 @@
+@import "../../../styles/_functions";
+@import "../../../styles/_variable";
+
+.signup__container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .signup {
+    padding: toRem(40);
+    height: toRem(500);
+    width: toRem(500);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-offset-background;
+    flex-direction: column;
+  }
+}
+
+:host ::ng-deep .p-inputtext {
+  background-color: $input-text-color !important;
+}
+
+.signup__btn {
+  margin: toRem(10) 0;
+  width: 99%;
+}
+span,
+a {
+  color: $color-white;
+  text-decoration: none;
+}
+
+.item__top {
+  i {
+    font-size: toRem(25);
+  }
+  font-size: toRem(25);
+  margin-bottom: toRem(20);
+  color: $color-white;
+}

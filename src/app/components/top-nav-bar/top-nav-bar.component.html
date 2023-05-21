@@ -1,0 +1,42 @@
+<div class="topnav themebg theme_tag">
+  <div class="item__left">
+    <span class="icon__container">
+      <i class="pi pi-server"></i>
+    </span>
+    <span class="logo">G-BOX</span>
+  </div>
+  <div class="item__right">
+    <div class="theme__sec">
+      <span><i class="pi pi-sun"></i></span>
+      <p-inputSwitch
+        (onChange)="changeTheme()"
+        [(ngModel)]="checked"
+      ></p-inputSwitch>
+      <span><i class="pi pi-moon"></i></span>
+    </div>
+    <section class="profile__sec">
+      <p-avatar
+        icon="pi pi-user"
+        styleClass="p-mr-2"
+        shape="circle"
+        [style]="{
+          'background-color': '#ba68c8',
+          color: '#ffffff',
+          cursor: 'pointer'
+        }"
+        (click)="menu.toggle($event)"
+      ></p-avatar>
+    </section>
+  </div>
+  <p-menu
+    class="profile__menu"
+    #menu
+    [popup]="true"
+    [model]="profileMenuItems"
+    [autoZIndex]="false"
+    [style]="{
+      'z-index': '10000'
+    }"
+    appendTo="body"
+  ></p-menu>
+</div>

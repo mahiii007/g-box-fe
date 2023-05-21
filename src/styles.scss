@@ -1,1 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.css";
+@import "../node_modules/primeicons/primeicons.css";
+// @import "../node_modules/primeng/resources/themes/arya-purple/theme.css";
+// // @import "../node_modules/primeng/resources/themes/fluent-light/theme.css";
+// @import "../node_modules/primeng/resources/themes/saga-purple/theme.css";
+@import "./styles/_variable";
+@import "./styles/_functions";
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  // background-color: $primary-background;
+  min-height: 100%;
+}
+
+html {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.icon__container {
+  margin-right: 0.5rem;
+}
+
+.icon__primary_color {
+  color: $primary-color;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $primary-background;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: toRem(10);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::ng-deep .p-toast-summary {
+  font-size: toRem(14);
+}
+
+::ng-deep .p-toast-details {
+  font-size: toRem(13);
+}
+
+::ng-deep .p-toast-message-icon {
+  font-size: 1.5rem;
+}

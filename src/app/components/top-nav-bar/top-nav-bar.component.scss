@@ -1,0 +1,75 @@
+@import "../../../styles/_variable";
+@import "../../../styles/_functions";
+
+.topnav {
+  overflow: hidden;
+  // background-color: $primary-offset-background;
+  height: toRem(70);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  .item__left {
+    width: 17%;
+    display: flex;
+    align-items: center;
+    padding-left: toRem(20);
+    font-size: toRem(18);
+  }
+  .item__right {
+    width: 83%;
+    display: flex;
+    justify-content: flex-end;
+    .profile__sec {
+      display: flex;
+      align-items: center;
+      padding-right: toRem(10);
+    }
+    .theme__sec {
+      width: 11%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-right: toRem(10);
+      margin-right: toRem(12);
+    }
+  }
+}
+
+.topnav a {
+  color: $topnav-text-color;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: flex;
+  justify-content: flex-start;
+  height: inherit;
+  width: toRem(250);
+}
+i {
+  color: $color-white;
+}
+
+// .topnav a:hover {
+//   background-color: #ddd;
+//   color: black;
+// }
+
+// .topnav a.active {
+//   background-color: #04aa6d;
+//   color: white;
+// }
+
+.logo__container {
+  height: inherit;
+  width: toRem(250);
+}
+
+.logo {
+  color: $color-white;
+}
+
+.profile__menu {
+  z-index: 1;
+}

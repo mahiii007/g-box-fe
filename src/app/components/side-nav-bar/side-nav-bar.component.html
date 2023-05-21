@@ -1,0 +1,14 @@
+<div class="sidenav themebg">
+  <a
+    (click)="navigateToDrivePanel()"
+    [ngClass]="activeTab === 'My-Drive' ? 'active' : 'deactive'"
+    ><span class="icon__container"> <i class="pi pi-home"></i> </span>My
+    Drive</a
+  >
+  <a
+    (click)="navigateToFavoritePanel()"
+    [ngClass]="activeTab === 'Favourites' ? 'active' : 'deactive'"
+    ><span class="icon__container"> <i class="pi pi-heart"></i> </span
+    >Favourites</a
+  >
+</div>

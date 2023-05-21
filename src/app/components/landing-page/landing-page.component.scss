@@ -1,0 +1,34 @@
+@import "../../../styles/_functions";
+@import "../../../styles/_variable";
+
+.landing__page {
+  display: block;
+  height: 100vh;
+}
+.top__nav__container {
+  height: 10%;
+}
+
+.main {
+  height: 90%;
+  display: flex;
+  &__sidenav {
+    width: 17%;
+  }
+  &__bodycontent {
+    width: 83%;
+    padding: toRem(5);
+  }
+}
+
+::ng-deep .p-toast-summary {
+  font-size: toRem(14) !important;
+}
+
+::ng-deep .p-toast-detail {
+  font-size: toRem(13) !important;
+}
+
+::ng-deep .p-toast-message-icon {
+  font-size: 1.5rem !important ;
+}

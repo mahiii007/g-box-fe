@@ -1,0 +1,52 @@
+@import "../../../styles/_variable";
+@import "../../../styles/_functions";
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: toRem(250); /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  //   z-index: 1; /* Stay on top */
+  top: toRem(70); /* Stay at the top */
+  left: 0;
+  // background-color: $primary-offset-background; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  height: 42px;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: $sidenav-text-color;
+  display: block;
+  width: 100%;
+  margin: 0 16px 4px 0;
+  font-weight: 600;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: $sidenav-text-hover-color;
+  background-color: $sidenav-text-hover-bg;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.sidenav a.active {
+  color: $primary-color;
+  background-color: $sidenav-text-hover-bg;
+}
+
+.sidenav a.deactive {
+  color: $sidenav-text-color;
+}

@@ -1,0 +1,86 @@
+<div class="content__wrapper themebg__alt">
+  <app-loader [show]="loading"></app-loader>
+  <div class="content">
+    <div class="content__toolbar">
+      <div class="content__toolbar__top">
+        <span class="p-input-icon-left content__toolbar__top__span">
+          <i class="pi pi-search"></i>
+          <input
+            class="content__toolbar__top__span__input"
+            type="text"
+            pInputText
+            placeholder="Search"
+            [(ngModel)]="value"
+          />
+        </span>
+      </div>
+      <div class="content__toolbar__bottom">
+        <section class="content__toolbar__bottom__breadcrumb">
+          <p-breadcrumb
+            styleClass="content__toolbar__bottom__breadcrumb__component"
+            [model]="items"
+          ></p-breadcrumb>
+        </section>
+
+        <section class="content__toolbar__bottom__button">
+          <button
+            type="button"
+            pButton
+            icon="pi pi-plus"
+            label="Add"
+            (click)="menu.toggle($event)"
+          ></button>
+        </section>
+      </div>
+    </div>
+    <div class="content__table">
+      <p-table
+        [value]="driveDetails"
+        [rowHover]="true"
+        [scrollHeight]="'calc(100vh - 200px)'"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Modified Date</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th style="width: 100px"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr
+            (dblclick)="onRowDoubleClick(rowData)"
+            [pSelectableRowDblClick]="rowData"
+          >
+            <td>
+              <span class="icon__container icon__primary_color">
+                <i *ngIf="rowData.dir" class="pi pi-folder-open"></i>
+                <i *ngIf="!rowData.dir" class="pi pi-file"></i> </span
+              >{{ rowData.name }}
+            </td>
+            <td>{{ rowData.modifiedDate | date : "dd MMM, hh:mm aa" }}</td>
+            <td>{{ rowData.type }}</td>
+            <td>{{ rowData.size }}</td>
+            <td style="width: 100px">
+              <i
+                style="cursor: pointer"
+                *ngIf="!rowData.dir"
+                class="pi pi-ellipsis-h"
+                (click)="actionMenu.toggle($event)"
+              ></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<p-menu #menu [popup]="true" [model]="menuItems" styleClass="addmenu"></p-menu>
+<p-menu
+  #actionMenu
+  [popup]="true"
+  [model]="actionItems"
+  styleClass="addmenu"
+></p-menu>

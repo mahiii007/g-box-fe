@@ -1,0 +1,40 @@
+<div class="signup__container themebg__alt">
+  <div class="signup">
+    <div class="item__top">
+      <span class="icon__container">
+        <i class="pi pi-server"></i>
+      </span>
+      <span class="logo">G-BOX</span>
+    </div>
+    <div class="p-fluid p-grid">
+      <div class="p-col-12">
+        <input type="text" id="inputtext" pInputText placeholder="Full Name" />
+      </div>
+      <div class="p-col-12">
+        <input type="text" id="inputtext" pInputText placeholder="Email" />
+      </div>
+      <div class="p-col-12">
+        <p-password
+          [toggleMask]="true"
+          [(ngModel)]="password"
+          placeholder="Password"
+        ></p-password>
+      </div>
+      <div class="p-col-12">
+        <p-password
+          [toggleMask]="true"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm Password"
+        ></p-password>
+      </div>
+    </div>
+    <button
+      class="signup__btn"
+      pButton
+      pRipple
+      type="button"
+      label="Sign Up"
+    ></button>
+    <span>Already have an account? <a routerLink="/login">login</a></span>
+  </div>
+</div>

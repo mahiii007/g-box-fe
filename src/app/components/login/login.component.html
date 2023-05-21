@@ -1,0 +1,38 @@
+<div class="login__container themebg__alt">
+  <div class="login">
+    <div class="item__top">
+      <span class="icon__container">
+        <i class="pi pi-server"></i>
+      </span>
+      <span class="logo">G-BOX</span>
+    </div>
+    <div class="p-fluid p-grid">
+      <div class="p-col-12">
+        <input
+          type="text"
+          [(ngModel)]="username"
+          id="inputtext"
+          pInputText
+          placeholder="Username"
+        />
+      </div>
+      <div class="p-col-12">
+        <p-password
+          [toggleMask]="true"
+          [(ngModel)]="password"
+          placeholder="Password"
+        ></p-password>
+      </div>
+    </div>
+    <button
+      class="login__btn"
+      pButton
+      pRipple
+      type="button"
+      label="Log In"
+      (click)="loginUser()"
+    ></button>
+    <p>Don't have an account?</p>
+    <a routerLink="/signup">Sign up</a>
+  </div>
+</div>
