@@ -10,5 +10,13 @@
       />
     </div>
   </div>
-  <button class="add__btn" pButton pRipple type="button" label="Add"></button>
+  <button
+    class="add__btn"
+    pButton
+    pRipple
+    type="button"
+    label="Add"
+    (click)="onAddClick()"
+    [disabled]="!folderName"
+  ></button>
 </div>

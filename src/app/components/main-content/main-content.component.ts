@@ -55,12 +55,20 @@ export class MainContentComponent implements OnInit {
     }
   }
 
-  openAddNewFolderPanel(event: any) {
-    this.dialogSvc.open(CreateFolderComponent, {
+  async openAddNewFolderPanel(event: any) {
+    const ref = this.dialogSvc.open(CreateFolderComponent, {
       header: 'Add New Folder',
       width: '30%',
       contentStyle: { height: '150px', overflow: 'hidden' },
       baseZIndex: 10000,
+    });
+    ref.onClose.subscribe((path) => {
+      this.mainSvc
+        .loadDirectory(path)
+        .then((res) => (this.driveDetails = [...(res as [])]))
+        .catch((error) => {
+          console.error(error);
+        });
     });
   }
 
@@ -111,23 +119,28 @@ export class MainContentComponent implements OnInit {
   }
 
   async onRowDoubleClick(data: IDirectory) {
-    console.log('🚀 ~ data:', data);
-    this.loading = true;
-    if (!data.dir) {
-      const res: any = await this.mainSvc.loadFile(data.name, this.currentPath);
-      if (res) {
-        const file = new Blob(res, { type: data.type });
-        const url = URL.createObjectURL(file);
-        window.open(url);
-      }
-    }
     try {
+      console.log('🚀 ~ data:', data);
+      this.loading = true;
+      if (!data.dir) {
+        const res: any = await this.mainSvc.loadFile(
+          data.name,
+          this.currentPath
+        );
+        if (res) {
+          const file = new Blob(res, { type: data.type });
+          const url = URL.createObjectURL(file);
+          window.open(url);
+        }
+      }
+
       this.items.push({ label: data.name });
       this.items = [...this.items];
       let pathList = this.items.map((item) => item.label);
       pathList = pathList.slice(1);
       this.currentPathArr = [...pathList];
       this.currentPath = pathList.join('/');
+      localStorage.setItem('current-path', this.currentPath);
 
       const res: any = await this.mainSvc.loadDirectory(this.currentPath);
       if (res) {
@@ -150,12 +163,15 @@ export class MainContentComponent implements OnInit {
 
   async onBreadcrumbItemClick(event: any) {
     try {
+      console.log('🚀 ~ event:', event);
+
       this.loading = true;
       const currentClickedItem = event?.item?.label;
       if (currentClickedItem) {
         if (currentClickedItem === 'My Drive') {
           this.currentPath = '';
           this.currentPathArr = [];
+          localStorage.removeItem('current-path');
         } else {
           const clickedIndex = this.currentPathArr.findIndex(
             (label) => label === currentClickedItem.toString()
@@ -166,6 +182,7 @@ export class MainContentComponent implements OnInit {
               clickedIndex + 1
             );
             this.currentPath = this.currentPathArr.join('/');
+            localStorage.setItem('current-path', this.currentPath);
           }
 
           const res: any = await this.mainSvc.loadDirectory(this.currentPath);

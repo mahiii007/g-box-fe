@@ -26,19 +26,16 @@ export class MainService {
     return this.http.get(url, this.constructHttpOptions()).toPromise();
   }
 
-  createFolder(name: string, folderPath = '/') {
+  createFolder(name: string, folderPath = '') {
     let url = '';
-    url = `${this.serverUrl}/api/create-folder`;
-    return this.http
-      .post(url, { name: name, path: folderPath }, this.constructHttpOptions())
-      .toPromise();
+    url = `${this.serverUrl}/api/create-folder?reqDir=${folderPath}&folderName=${name}'`;
+    return this.http.post(url, {}, this.constructHttpOptions()).toPromise();
   }
 
-  upload(file: any, folderPath = '/') {
+  upload(file: any, folderPath = '') {
     let fileData: FormData = new FormData();
     fileData.append('file', file, file.name);
-    fileData.append('path', folderPath);
-    let url = `${this.serverUrl}/api/upload`;
+    let url = `${this.serverUrl}/drive/upload-file?reqDir=${folderPath}`;
     return this.http
       .post(url, fileData, this.constructHttpOptions())
       .toPromise();

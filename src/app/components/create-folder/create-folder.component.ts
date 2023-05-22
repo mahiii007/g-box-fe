@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MainService } from 'src/app/main.service';
+import { ToastService } from 'src/app/toast.service';
 
 @Component({
   selector: 'app-create-folder',
@@ -6,8 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-folder.component.scss'],
 })
 export class CreateFolderComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private mainSvc: MainService,
+    private toastSvc: ToastService,
+    public ref: DynamicDialogRef
+  ) {}
   folderName = '';
 
   ngOnInit(): void {}
+
+  async onAddClick() {
+    try {
+      const path = localStorage.getItem('current-path') || '';
+      const res = await this.mainSvc.createFolder(this.folderName, path);
+      if (res) {
+        this.toastSvc.success('Folder Added Successfully.', 'SUCCESS');
+        this.ref.close(path);
+      }
+    } catch (error) {
+      console.error(error);
+      this.toastSvc.success('Failed to add folder.', 'ERROR');
+    }
+  }
 }
