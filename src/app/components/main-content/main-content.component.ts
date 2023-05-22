@@ -112,6 +112,7 @@ export class MainContentComponent implements OnInit {
 
   async onRowDoubleClick(data: IDirectory) {
     console.log('🚀 ~ data:', data);
+    this.loading = true;
     if (!data.dir) {
       const res: any = await this.mainSvc.loadFile(data.name, this.currentPath);
       if (res) {
@@ -121,7 +122,6 @@ export class MainContentComponent implements OnInit {
       }
     }
     try {
-      this.loading = true;
       this.items.push({ label: data.name });
       this.items = [...this.items];
       let pathList = this.items.map((item) => item.label);
