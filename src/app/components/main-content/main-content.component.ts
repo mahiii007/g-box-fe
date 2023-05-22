@@ -44,7 +44,8 @@ export class MainContentComponent implements OnInit {
   async load() {
     try {
       this.loading = true;
-      const res: any = await this.mainSvc.loadDirectory();
+      const path = localStorage.getItem('current-path') || '';
+      const res: any = await this.mainSvc.loadDirectory(path);
       if (res) {
         this.driveDetails = [...res];
       }
