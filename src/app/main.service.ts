@@ -45,9 +45,18 @@ export class MainService {
   }
 
   loadFile(fileName: string, folderPath = '') {
-    let url = `${this.serverUrl}/drive/list?reqDir=${encodeURIComponent(
+    let url = `${
+      this.serverUrl
+    }/drive/resource-file?reqDir=${encodeURIComponent(
       folderPath
     )}&fileName=${encodeURIComponent(fileName)}}`;
-    return this.http.get(url, this.constructHttpOptions()).toPromise();
+    return this.http
+      .get(url, {
+        responseType: 'arraybuffer' as 'json',
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .toPromise();
   }
 }
