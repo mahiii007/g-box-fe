@@ -10,7 +10,8 @@
             type="text"
             pInputText
             placeholder="Search"
-            [(ngModel)]="value"
+            [(ngModel)]="searchValue"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
           />
         </span>
       </div>
@@ -36,6 +37,7 @@
     </div>
     <div class="content__table">
       <p-table
+        #dt
         [value]="driveDetails"
         [rowHover]="true"
         [scrollHeight]="'calc(100vh - 200px)'"

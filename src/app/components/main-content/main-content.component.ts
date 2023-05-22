@@ -22,7 +22,7 @@ export class MainContentComponent implements OnInit {
 
   items = [{ label: 'My Drive' }];
 
-  value: string = '';
+  searchValue: string = '';
   browseFiles = false;
 
   constructor(
