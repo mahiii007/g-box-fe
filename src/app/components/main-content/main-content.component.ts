@@ -153,15 +153,21 @@ export class MainContentComponent implements OnInit {
       this.loading = true;
       const currentClickedItem = event?.item?.label;
       if (currentClickedItem) {
-        const clickedIndex = this.currentPathArr.findIndex(
-          (label) => label === currentClickedItem.toString()
-        );
-        if (clickedIndex) {
-          this.currentPathArr = this.currentPathArr.slice(
-            clickedIndex - 1,
-            this.currentPathArr.length - 1
+        if (currentClickedItem === 'My Drive') {
+          this.currentPath = '';
+          this.currentPathArr = [];
+        } else {
+          const clickedIndex = this.currentPathArr.findIndex(
+            (label) => label === currentClickedItem.toString()
           );
-          this.currentPath = this.currentPathArr.join('/');
+          if (clickedIndex) {
+            this.currentPathArr = this.currentPathArr.slice(
+              0,
+              clickedIndex + 1
+            );
+            this.currentPath = this.currentPathArr.join('/');
+          }
+
           const res: any = await this.mainSvc.loadDirectory(this.currentPath);
           if (res) {
             this.driveDetails = [...res];
