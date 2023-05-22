@@ -18,6 +18,7 @@ export class MainContentComponent implements OnInit {
   menuItems: MenuItem[] = [];
   actionItems: MenuItem[] = [];
   currentPath = '';
+  currentPathArr: string[] = [];
 
   items = [{ label: 'My Drive' }];
 
@@ -125,6 +126,7 @@ export class MainContentComponent implements OnInit {
       this.items = [...this.items];
       let pathList = this.items.map((item) => item.label);
       pathList = pathList.slice(1);
+      this.currentPathArr = [...pathList];
       this.currentPath = pathList.join('/');
 
       const res: any = await this.mainSvc.loadDirectory(this.currentPath);
@@ -144,6 +146,34 @@ export class MainContentComponent implements OnInit {
 
   handleFiles(event: any) {
     console.log('🚀 ~ event:', event);
+  }
+
+  async onBreadcrumbItemClick(event: any) {
+    try {
+      this.loading = true;
+      const currentClickedItem = event?.item?.label;
+      if (currentClickedItem) {
+        const clickedIndex = this.currentPathArr.findIndex(
+          (label) => label === currentClickedItem.toString()
+        );
+        if (clickedIndex) {
+          this.currentPathArr = this.currentPathArr.slice(
+            clickedIndex - 1,
+            this.currentPathArr.length - 1
+          );
+          this.currentPath = this.currentPathArr.join('/');
+          const res: any = await this.mainSvc.loadDirectory(this.currentPath);
+          if (res) {
+            this.driveDetails = [...res];
+          }
+        }
+      }
+    } catch (error: any) {
+      console.error(error);
+      this.toastSvc.showIfError(error);
+    } finally {
+      this.loading = false;
+    }
   }
 }
 

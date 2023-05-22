@@ -19,6 +19,7 @@
           <p-breadcrumb
             styleClass="content__toolbar__bottom__breadcrumb__component"
             [model]="items"
+            (onItemClick)="onBreadcrumbItemClick($event)"
           ></p-breadcrumb>
         </section>
 
