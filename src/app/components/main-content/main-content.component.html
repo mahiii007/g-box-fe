@@ -40,6 +40,7 @@
         [rowHover]="true"
         [scrollHeight]="'calc(100vh - 200px)'"
         responsiveLayout="scroll"
+        [globalFilterFields]="['name', 'type', 'size', 'lastModifiedAt']"
       >
         <ng-template pTemplate="header">
           <tr>
