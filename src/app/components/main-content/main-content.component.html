@@ -60,7 +60,7 @@
                 <i *ngIf="!rowData.dir" class="pi pi-file"></i> </span
               >{{ rowData.name }}
             </td>
-            <td>{{ rowData.modifiedDate | date : "dd MMM, hh:mm aa" }}</td>
+            <td>{{ rowData.lastModifiedAt | date : "dd MMM, hh:mm aa" }}</td>
             <td>{{ rowData.type }}</td>
             <td>{{ rowData.size }}</td>
             <td style="width: 100px">

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  serverUrl = '';
+  serverUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -20,17 +21,27 @@ export class AuthService {
     };
   }
 
-  public login(email: string, password: string) {
-    const url = `${this.serverUrl}/api/login`;
-    return this.http
-      .post(url, { email, password }, this.constructHttpOptions())
-      .toPromise();
+  public login(username: string, password: string) {
+    const url = `${
+      this.serverUrl
+    }/auth/login?username=${username}&password=${encodeURIComponent(password)}`;
+    return this.http.post(url, {}, this.constructHttpOptions()).toPromise();
   }
 
-  public setToken(tokenPayload: { token: string; expiresIn: number }) {
-    const expiresAt = moment().add(tokenPayload?.expiresIn, 'second');
+  public signUp(data: {
+    fullName: string;
+    email: string;
+    password: string;
+    mobile: string;
+  }) {
+    const url = `${this.serverUrl}/auth/signup`;
+    return this.http.post(url, data, this.constructHttpOptions()).toPromise();
+  }
+
+  public setToken(tokenPayload: { token: string; expiresIn: string }) {
+    // const expiresAt = moment().add(tokenPayload?.expiresIn, 'second');
     localStorage.setItem('token', tokenPayload.token);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('expires_at', tokenPayload.expiresIn);
   }
 
   public logout() {
@@ -40,8 +51,7 @@ export class AuthService {
   }
 
   private getExpiration() {
-    const expiration = localStorage.getItem('expires_at') as string;
-    const expiresAt = JSON.parse(expiration);
+    const expiresAt = localStorage.getItem('expires_at') as string;
     return moment(expiresAt);
   }
 

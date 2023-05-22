@@ -8,10 +8,32 @@
     </div>
     <div class="p-fluid p-grid">
       <div class="p-col-12">
-        <input type="text" id="inputtext" pInputText placeholder="Full Name" />
+        <input
+          type="text"
+          id="inputtext"
+          [(ngModel)]="fullName"
+          pInputText
+          placeholder="Full Name"
+        />
+      </div>
+
+      <div class="p-col-12">
+        <input
+          type="email"
+          id="inputtext"
+          [(ngModel)]="email"
+          pInputText
+          placeholder="Email"
+        />
       </div>
       <div class="p-col-12">
-        <input type="text" id="inputtext" pInputText placeholder="Email" />
+        <input
+          type="text"
+          id="inputtext"
+          [(ngModel)]="mobile"
+          pInputText
+          placeholder="Mobile"
+        />
       </div>
       <div class="p-col-12">
         <p-password
@@ -34,6 +56,8 @@
       pRipple
       type="button"
       label="Sign Up"
+      (click)="onSignUp()"
+      [disabled]="disableSignInBtn()"
     ></button>
     <span>Already have an account? <a routerLink="/login">login</a></span>
   </div>

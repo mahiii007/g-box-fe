@@ -30,6 +30,7 @@
       pRipple
       type="button"
       label="Log In"
+      [disabled]="disableSaveBtn()"
       (click)="loginUser()"
     ></button>
     <p>Don't have an account?</p>

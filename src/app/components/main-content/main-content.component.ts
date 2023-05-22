@@ -14,44 +14,10 @@ import { ToastService } from 'src/app/toast.service';
 })
 export class MainContentComponent implements OnInit {
   public loading = false;
-  driveDetails: any = [];
+  driveDetails: IDirectory[] = [];
   menuItems: MenuItem[] = [];
   actionItems: MenuItem[] = [];
-
-  childData = [
-    {
-      id: 7,
-      name: 'OdioOdioElementum.mp3',
-      type: 'Transcof',
-      dir: false,
-      modifiedDate: '9/11/2022',
-      size: '3XL',
-    },
-    {
-      id: 8,
-      name: 'AtDiam.xls',
-      type: 'Overhold',
-      dir: true,
-      modifiedDate: '1/25/2023',
-      size: 'XL',
-    },
-    {
-      id: 9,
-      name: 'NuncVestibulum.mp3',
-      type: 'Cardify',
-      dir: true,
-      modifiedDate: '11/27/2022',
-      size: '2XL',
-    },
-    {
-      id: 10,
-      name: 'SuscipitLigula.tiff',
-      type: 'Kanlam',
-      dir: true,
-      modifiedDate: '11/10/2022',
-      size: 'S',
-    },
-  ];
+  currentPath = '';
 
   items = [{ label: 'My Drive' }];
 
@@ -77,179 +43,14 @@ export class MainContentComponent implements OnInit {
   async load() {
     try {
       this.loading = true;
-      this.mainSvc.loadDirectory();
-      setTimeout(() => {
-        this.driveDetails = [
-          {
-            id: 1,
-            name: 'At.doc',
-            type: 'Tres-Zap',
-            dir: false,
-            modifiedDate: '12/19/2022',
-            size: '3XL',
-          },
-          {
-            id: 2,
-            name: 'NullaSedVel.ppt',
-            type: 'Zontrax',
-            dir: true,
-            modifiedDate: '5/13/2023',
-            size: '3XL',
-          },
-          {
-            id: 3,
-            name: 'VivamusTortorDuis.tiff',
-            type: 'Konklux',
-            dir: true,
-            modifiedDate: '11/13/2022',
-            size: 'M',
-          },
-          {
-            id: 4,
-            name: 'PorttitorLorem.doc',
-            type: 'Konklux',
-            dir: true,
-            modifiedDate: '9/6/2022',
-            size: 'L',
-          },
-          {
-            id: 5,
-            name: 'Vestibulum.doc',
-            type: 'Sonair',
-            dir: false,
-            modifiedDate: '4/14/2023',
-            size: 'L',
-          },
-          {
-            id: 6,
-            name: 'TinciduntEgetTempus.mp3',
-            type: 'Lotlux',
-            dir: true,
-            modifiedDate: '11/24/2022',
-            size: 'M',
-          },
-          {
-            id: 7,
-            name: 'OdioOdioElementum.mp3',
-            type: 'Transcof',
-            dir: false,
-            modifiedDate: '9/11/2022',
-            size: '3XL',
-          },
-          {
-            id: 8,
-            name: 'AtDiam.xls',
-            type: 'Overhold',
-            dir: true,
-            modifiedDate: '1/25/2023',
-            size: 'XL',
-          },
-          {
-            id: 9,
-            name: 'NuncVestibulum.mp3',
-            type: 'Cardify',
-            dir: true,
-            modifiedDate: '11/27/2022',
-            size: '2XL',
-          },
-          {
-            id: 10,
-            name: 'SuscipitLigula.tiff',
-            type: 'Kanlam',
-            dir: true,
-            modifiedDate: '11/10/2022',
-            size: 'S',
-          },
-          {
-            id: 1,
-            name: 'At.doc',
-            type: 'Tres-Zap',
-            dir: false,
-            modifiedDate: '12/19/2022',
-            size: '3XL',
-          },
-          {
-            id: 2,
-            name: 'NullaSedVel.ppt',
-            type: 'Zontrax',
-            dir: true,
-            modifiedDate: '5/13/2023',
-            size: '3XL',
-          },
-          {
-            id: 3,
-            name: 'VivamusTortorDuis.tiff',
-            type: 'Konklux',
-            dir: true,
-            modifiedDate: '11/13/2022',
-            size: 'M',
-          },
-          {
-            id: 4,
-            name: 'PorttitorLorem.doc',
-            type: 'Konklux',
-            dir: true,
-            modifiedDate: '9/6/2022',
-            size: 'L',
-          },
-          {
-            id: 5,
-            name: 'Vestibulum.doc',
-            type: 'Sonair',
-            dir: false,
-            modifiedDate: '4/14/2023',
-            size: 'L',
-          },
-          {
-            id: 6,
-            name: 'TinciduntEgetTempus.mp3',
-            type: 'Lotlux',
-            dir: true,
-            modifiedDate: '11/24/2022',
-            size: 'M',
-          },
-          {
-            id: 7,
-            name: 'OdioOdioElementum.mp3',
-            type: 'Transcof',
-            dir: false,
-            modifiedDate: '9/11/2022',
-            size: '3XL',
-          },
-          {
-            id: 8,
-            name: 'AtDiam.xls',
-            type: 'Overhold',
-            dir: true,
-            modifiedDate: '1/25/2023',
-            size: 'XL',
-          },
-          {
-            id: 9,
-            name: 'NuncVestibulum.mp3',
-            type: 'Cardify',
-            dir: true,
-            modifiedDate: '11/27/2022',
-            size: '2XL',
-          },
-          {
-            id: 10,
-            name: 'SuscipitLigula.tiff',
-            type: 'Kanlam',
-            dir: true,
-            modifiedDate: '11/10/2022',
-            size: 'S',
-          },
-        ];
-        this.toastSvc.success('SUCCESS', 'FILE/FOLDER LOADED SUCCESSFULLY');
-        this.loading = false;
-      }, 2000);
-      if (this.driveDetails.length > 0) {
+      const res: any = await this.mainSvc.loadDirectory();
+      if (res) {
+        this.driveDetails = [...res];
       }
     } catch (error: any) {
       this.toastSvc.showIfError(error);
     } finally {
-      // this.loading = false;
+      this.loading = false;
     }
   }
 
@@ -308,23 +109,27 @@ export class MainContentComponent implements OnInit {
     ];
   }
 
-  onRowDoubleClick(data: IDirectory) {
+  async onRowDoubleClick(data: IDirectory) {
     console.log('🚀 ~ data:', data);
     if (!data.dir) {
       return;
     }
     try {
       this.loading = true;
-      setTimeout(() => {
-        this.driveDetails = [...this.childData];
-        this.items.push({ label: data.name });
-        this.items = [...this.items];
-        this.loading = false;
-      }, 4000);
+      this.items.push({ label: data.name });
+      this.items = [...this.items];
+      let pathList = this.items.map((item) => item.label);
+      pathList = pathList.slice(1);
+      this.currentPath = pathList.join('/');
+
+      const res: any = await this.mainSvc.loadDirectory(this.currentPath);
+      if (res) {
+        this.driveDetails = [...res];
+      }
     } catch (error: any) {
       this.toastSvc.showIfError(error);
     } finally {
-      // this.loading = false;
+      this.loading = false;
     }
   }
 
@@ -338,10 +143,9 @@ export class MainContentComponent implements OnInit {
 }
 
 interface IDirectory {
-  id: number;
   name: string;
   type: string;
   dir: boolean;
-  modifiedDate: string;
-  size: string;
+  lastModifiedAt: string;
+  size: number;
 }
