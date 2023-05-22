@@ -43,4 +43,11 @@ export class MainService {
       .post(url, fileData, this.constructHttpOptions())
       .toPromise();
   }
+
+  loadFile(fileName: string, folderPath = '') {
+    let url = `${this.serverUrl}/drive/list?reqDir=${encodeURIComponent(
+      folderPath
+    )}&fileName=${encodeURIComponent(fileName)}}`;
+    return this.http.get(url, this.constructHttpOptions()).toPromise();
+  }
 }

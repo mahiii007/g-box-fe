@@ -112,7 +112,12 @@ export class MainContentComponent implements OnInit {
   async onRowDoubleClick(data: IDirectory) {
     console.log('🚀 ~ data:', data);
     if (!data.dir) {
-      return;
+      const res: any = await this.mainSvc.loadFile(data.name, this.currentPath);
+      if (res) {
+        const file = new Blob(res, { type: data.type });
+        const url = URL.createObjectURL(file);
+        window.open(url);
+      }
     }
     try {
       this.loading = true;
