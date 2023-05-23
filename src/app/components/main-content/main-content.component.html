@@ -68,7 +68,7 @@
             </td>
             <td>{{ rowData.lastModifiedAt | date : "dd MMM, hh:mm aa" }}</td>
             <td>{{ rowData.type }}</td>
-            <td>{{ convertBytoToKb(rowData.size) }}</td>
+            <td>{{ !rowData.dir ? convertBytoToKb(rowData.size) : "" }}</td>
             <td style="width: 100px">
               <i
                 style="cursor: pointer"
