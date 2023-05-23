@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
         this.authSvc.setToken({ token: res.token, expiresIn: res.expiresIn });
         this.router.navigate(['/home']);
         this.toastSvc.success('Login Successful.', 'WELCOME');
+      } else {
+        this.toastSvc.error('LOGIN FAILED', 'ERROR');
       }
     } catch (error: any) {
       this.toastSvc.error('LOGIN FAILED', error?.message);
