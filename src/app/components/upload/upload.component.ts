@@ -18,7 +18,6 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {}
 
   async myUploader(event: any) {
-    console.log('upload', event);
     try {
       const path = localStorage.getItem('current-path') || '';
       const files = event.files;
