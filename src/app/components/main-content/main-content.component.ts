@@ -5,6 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { CreateFolderComponent } from '../create-folder/create-folder.component';
 import { UploadComponent } from '../upload/upload.component';
 import { ToastService } from 'src/app/toast.service';
+import prettyBytes from 'pretty-bytes';
 
 @Component({
   selector: 'app-main-content',
@@ -267,6 +268,10 @@ export class MainContentComponent implements OnInit {
     const output = [{ label: 'My Drive' }, ...arr];
 
     return output;
+  }
+
+  convertBytoToKb(byte: any) {
+    return prettyBytes(byte, { minimumFractionDigits: 3 });
   }
 }
 

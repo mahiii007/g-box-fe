@@ -52,9 +52,9 @@ export class UploadComponent implements OnInit {
         if (res?.status === -1) this.toastSvc.error('uploaed Failed.', 'Error');
         this.ref.close(path);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this.toastSvc.error('failed to upload');
+      this.toastSvc.error('failed to upload', error?.error?.message);
     }
   }
 }
