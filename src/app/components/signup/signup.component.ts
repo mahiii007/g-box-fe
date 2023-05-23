@@ -40,11 +40,9 @@ export class SignupComponent implements OnInit {
         this.authSvc.setToken({ token: res.token, expiresIn: res.expiresIn });
         this.router.navigate(['/home']);
         this.toastSvc.success('Signup Successful.', 'WELCOME');
-      } else {
-        this.toastSvc.error('SIGNUP FAILED', 'ERROR');
       }
     } catch (error: any) {
-      this.toastSvc.error('SIGNUP FAILED', error?.message);
+      this.toastSvc.error('SIGNUP FAILED', error?.error?.message);
       console.error(error);
     }
   }
