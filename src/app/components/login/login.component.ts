@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     try {
       const res: any = await this.authSvc.login(this.username, this.password);
       if (res) {
+        if (res?.status === 400) {
+          this.toastSvc.error('LOGIN FAILED', res?.message);
+          return;
+        }
         this.authSvc.setToken({ token: res.token, expiresIn: res.expiresIn });
         this.router.navigate(['/home']);
         this.toastSvc.success('Login Successful.', 'WELCOME');
