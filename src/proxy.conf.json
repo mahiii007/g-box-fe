@@ -1,11 +1,11 @@
 {
   "/api/*": {
-    "target": "https://ec16-2405-201-a007-b13f-1142-6aec-b19c-657f.ngrok-free.app",
+    "target": "http://localhost:8090",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
     },
-    "changeOrigin": true,
+    "changeOrigin": false,
     "logLevel": "debug"
   }
 }
