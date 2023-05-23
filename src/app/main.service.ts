@@ -19,6 +19,13 @@ export class MainService {
     };
   }
 
+  constructHttpOptionsForUpload() {
+    return {
+      headers: new HttpHeaders({}),
+      withCredentials: true,
+    };
+  }
+
   loadDirectory(folderPath = '') {
     let url = `${this.serverUrl}/drive/list?reqDir=${encodeURIComponent(
       folderPath
@@ -28,16 +35,30 @@ export class MainService {
 
   createFolder(name: string, folderPath = '') {
     let url = '';
-    url = `${this.serverUrl}/api/create-folder?reqDir=${folderPath}&folderName=${name}'`;
+    url = `${this.serverUrl}/drive/create-folder?reqDir=${folderPath}&folderName=${name}`;
     return this.http.post(url, {}, this.constructHttpOptions()).toPromise();
   }
 
-  upload(file: any, folderPath = '') {
+  upload(file: any, folderPath = '', type?: 'SINGLE' | 'MULTIPLE') {
+    let url = '';
     let fileData: FormData = new FormData();
-    fileData.append('file', file, file.name);
-    let url = `${this.serverUrl}/drive/upload-file?reqDir=${folderPath}`;
+
+    if (file && file.length && type === 'MULTIPLE') {
+      file.forEach((each: any) => {
+        fileData.append('files', each, each.name);
+      });
+    } else {
+      fileData.append('file', file, file.name);
+    }
+
+    if (type === 'SINGLE') {
+      url = `${this.serverUrl}/drive/upload-file?reqDir=${folderPath}`;
+    }
+    if (type === 'MULTIPLE') {
+      url = `${this.serverUrl}/drive/upload-files?reqDir=${folderPath}`;
+    }
     return this.http
-      .post(url, fileData, this.constructHttpOptions())
+      .post(url, fileData, this.constructHttpOptionsForUpload())
       .toPromise();
   }
 

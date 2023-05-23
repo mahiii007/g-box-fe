@@ -25,6 +25,8 @@ export class MainContentComponent implements OnInit {
   searchValue: string = '';
   browseFiles = false;
 
+  public currentFile: any = {};
+
   constructor(
     private mainSvc: MainService,
     private dialogSvc: DialogService,
@@ -45,7 +47,10 @@ export class MainContentComponent implements OnInit {
     try {
       this.loading = true;
       const path = localStorage.getItem('current-path') || '';
-      const res: any = await this.mainSvc.loadDirectory(path);
+      this.currentPath = path;
+      this.currentPathArr = path ? path.split('/') : [];
+      this.items = [...this.setBreadCumb()];
+      const res: any = await this.mainSvc.loadDirectory(this.currentPath);
       if (res) {
         this.driveDetails = [...res];
       }
@@ -74,10 +79,18 @@ export class MainContentComponent implements OnInit {
   }
 
   openUploadFileOrFolderPanel(event: any) {
-    this.dialogSvc.open(UploadComponent, {
+    const ref = this.dialogSvc.open(UploadComponent, {
       header: 'Upload',
       width: '40%',
       baseZIndex: 10000,
+    });
+    ref.onClose.subscribe((path) => {
+      this.mainSvc
+        .loadDirectory(path)
+        .then((res) => (this.driveDetails = [...(res as [])]))
+        .catch((error) => {
+          console.error(error);
+        });
     });
   }
 
@@ -113,7 +126,7 @@ export class MainContentComponent implements OnInit {
         label: 'Download',
         icon: 'pi pi-cloud-download',
         command(event) {
-          currentCompRef.downloadFile();
+          currentCompRef.downloadFile(event);
         },
       },
     ];
@@ -121,7 +134,6 @@ export class MainContentComponent implements OnInit {
 
   async onRowDoubleClick(data: IDirectory) {
     try {
-      console.log('🚀 ~ data:', data);
       this.loading = true;
       if (!data.dir) {
         const res: any = await this.mainSvc.loadFile(
@@ -129,10 +141,12 @@ export class MainContentComponent implements OnInit {
           this.currentPath
         );
         if (res) {
-          const file = new Blob(res, { type: data.type });
+          const file = new Blob([res], { type: data.type });
           const url = URL.createObjectURL(file);
           window.open(url);
+          return;
         }
+        return;
       }
 
       this.items.push({ label: data.name });
@@ -154,18 +168,59 @@ export class MainContentComponent implements OnInit {
     }
   }
 
-  previewFile() {}
-
-  downloadFile() {}
-
-  handleFiles(event: any) {
-    console.log('🚀 ~ event:', event);
+  async previewFile() {
+    try {
+      const res: any = await this.mainSvc.loadFile(
+        this.currentFile.name,
+        this.currentPath
+      );
+      if (res) {
+        const file = new Blob([res], { type: this.currentFile.type });
+        const url = URL.createObjectURL(file);
+        window.open(url);
+        return;
+      }
+      this.toastSvc.success('Successfully download', 'Success');
+    } catch (error) {
+      this.toastSvc.error('fialed to download');
+      console.error();
+    }
   }
+
+  onRowClick(event: any) {
+    this.currentFile = event;
+  }
+
+  async downloadFile(event: any) {
+    try {
+      const res: any = await this.mainSvc.loadFile(
+        this.currentFile.name,
+        this.currentPath
+      );
+      console.log(res);
+      if (res) {
+        const file = new Blob([res], { type: this.currentFile.type });
+        const url = URL.createObjectURL(file);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = this.currentFile.name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      }
+      this.toastSvc.success('Successfully download', 'Success');
+    } catch (error) {
+      this.toastSvc.error('fialed to download');
+      console.error();
+    }
+  }
+
+  handleFiles(event: any) {}
 
   async onBreadcrumbItemClick(event: any) {
     try {
-      console.log('🚀 ~ event:', event);
-
       this.loading = true;
       const currentClickedItem = event?.item?.label;
       if (currentClickedItem) {
@@ -173,23 +228,24 @@ export class MainContentComponent implements OnInit {
           this.currentPath = '';
           this.currentPathArr = [];
           localStorage.removeItem('current-path');
+          this.items = [{ label: 'My Drive' }];
         } else {
           const clickedIndex = this.currentPathArr.findIndex(
             (label) => label === currentClickedItem.toString()
           );
-          if (clickedIndex) {
+          if (clickedIndex !== -1) {
             this.currentPathArr = this.currentPathArr.slice(
               0,
               clickedIndex + 1
             );
             this.currentPath = this.currentPathArr.join('/');
+            this.items = [...this.setBreadCumb()];
             localStorage.setItem('current-path', this.currentPath);
           }
-
-          const res: any = await this.mainSvc.loadDirectory(this.currentPath);
-          if (res) {
-            this.driveDetails = [...res];
-          }
+        }
+        const res: any = await this.mainSvc.loadDirectory(this.currentPath);
+        if (res) {
+          this.driveDetails = [...res];
         }
       }
     } catch (error: any) {
@@ -198,6 +254,19 @@ export class MainContentComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  setBreadCumb() {
+    let arr = this.currentPathArr.map((each) => {
+      const output = {
+        label: each,
+      };
+      return output;
+    });
+
+    const output = [{ label: 'My Drive' }, ...arr];
+
+    return output;
   }
 }
 

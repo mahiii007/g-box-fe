@@ -21,14 +21,13 @@ export class CreateFolderComponent implements OnInit {
   async onAddClick() {
     try {
       const path = localStorage.getItem('current-path') || '';
-      const res = await this.mainSvc.createFolder(this.folderName, path);
-      if (res) {
-        this.toastSvc.success('Folder Added Successfully.', 'SUCCESS');
-        this.ref.close(path);
-      }
+      await this.mainSvc.createFolder(this.folderName, path);
+
+      this.toastSvc.success('Folder Added Successfully.', 'SUCCESS');
+      this.ref.close(path);
     } catch (error) {
       console.error(error);
-      this.toastSvc.success('Failed to add folder.', 'ERROR');
+      this.toastSvc.error('Failed to add folder.', 'ERROR');
     }
   }
 }

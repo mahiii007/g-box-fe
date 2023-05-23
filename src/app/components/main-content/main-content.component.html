@@ -57,6 +57,8 @@
           <tr
             (dblclick)="onRowDoubleClick(rowData)"
             [pSelectableRowDblClick]="rowData"
+            [pSelectableRow]="rowData"
+            (click)="onRowClick(rowData)"
           >
             <td>
               <span class="icon__container icon__primary_color">

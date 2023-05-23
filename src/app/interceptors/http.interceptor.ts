@@ -15,7 +15,9 @@ export class GboxHttpInterceptor implements HttpInterceptor {
     const idToken = localStorage.getItem('token');
     if (idToken) {
       const cloned = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + idToken),
+        headers: req.headers
+          .set('Authorization', 'Bearer ' + idToken)
+          .set('ngrok-skip-browser-warning', 'true'),
       });
       return next.handle(cloned);
     } else {
