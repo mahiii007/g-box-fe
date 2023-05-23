@@ -46,7 +46,7 @@ export class MainService {
       this.serverUrl
     }/drive/resource-file?reqDir=${encodeURIComponent(
       folderPath
-    )}&fileName=${encodeURIComponent(fileName)}}`;
+    )}&fileName=${encodeURIComponent(fileName)}`;
     return this.http
       .get(url, {
         responseType: 'arraybuffer' as 'json',
