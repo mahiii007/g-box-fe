@@ -33,17 +33,17 @@ export class SignupComponent implements OnInit {
       };
       const res: any = await this.authSvc.signUp(data);
       if (res) {
-        if (res?.status === 400) {
-          this.toastSvc.error('SIGNUP FAILED', res?.message);
-          return;
-        }
+        // if (res?.status === 400) {
+        //   this.toastSvc.error('SIGNUP FAILED', res?.message);
+        //   return;
+        // }
         this.authSvc.setToken({ token: res.token, expiresIn: res.expiresIn });
         this.router.navigate(['/home']);
         this.toastSvc.success('Signup Successful.', 'WELCOME');
       }
     } catch (error: any) {
+      this.toastSvc.error('SIGNUP FAILED', error?.message);
       console.error(error);
-      this.toastSvc.error('Signup Failed.', 'Error');
     }
   }
 
